@@ -8,6 +8,8 @@ namespace SalesWebMvc.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        //Classe Department possui `N` Sellers....
         public ICollection<Seller> Sellers { get; set; } = new List<Seller>();
 
         public Department()
