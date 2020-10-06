@@ -16,6 +16,9 @@ namespace SalesWebMvc.Models
         //Department -> classe seller possuir 1 department
         public Department Department { get; set; }
 
+        //Garantir integridade referencial no banco com a tabela Departament
+        public int DepartmentId { get; set; }
+
         //Classe Seller possui `N` registros de vendas...
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
