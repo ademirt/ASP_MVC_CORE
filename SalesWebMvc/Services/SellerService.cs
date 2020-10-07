@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using SalesWebMvc.Services.Exceptions;
 
 namespace SalesWebMvc.Services
 {
@@ -27,7 +28,7 @@ namespace SalesWebMvc.Services
             _context.SaveChanges();
         }
 
-        //método para localizar o seller por id
+        //método para localizar o seller/departament por id
         public Seller FindById(int id)
         {
             return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
@@ -40,5 +41,28 @@ namespace SalesWebMvc.Services
             _context.Seller.Remove(obj);
             _context.SaveChanges();
         }
+
+        //método para atualizar dados no seller
+        public void Update(Seller obj)
+        {
+            //verifica se existe o id na base de dados...
+            if (!_context.Seller.Any(x => x.Id == obj.Id))
+            {
+                //dispara uma exceção caso não encontrar o id do seller
+                throw new NotFoundException("Id not found!!!");
+            }
+
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
+
+        }
     }
 }
+;
