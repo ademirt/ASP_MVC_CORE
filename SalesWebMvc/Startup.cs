@@ -53,6 +53,10 @@ namespace SalesWebMvc
             //registrar a classe DepartmentService para injeção de dependencia
             services.AddScoped<DepartmentService>();
 
+            //ademir
+            //registrar a classe SalesRecordService para injeção de dependencia
+            services.AddScoped<SalesRecordService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,7 +94,7 @@ namespace SalesWebMvc
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Sellers}/{action=Index}/{id?}");
             });
         }
     }
